@@ -3,277 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuma Express - Tu Minimarket de Confianza</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Pizzería Express</title>
     <style>
-        :root {
-            --primary-color: #FF6B00;
-            --secondary-color: #FFC107;
-            --dark-color: #333;
-            --light-color: #f9f9f9;
-            --white: #ffffff;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: var(--dark-color);
-            background-color: var(--white);
-        }
-
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary { background-color: var(--primary-color); color: var(--white); }
-        .btn-primary:hover { background-color: #e65c00; transform: translateY(-2px); }
-        .btn-secondary { background-color: var(--secondary-color); color: var(--dark-color); }
-
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--dark-color); }
-        .section-title span { color: var(--primary-color); }
-
-        nav {
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); display: flex; align-items: center; gap: 10px; }
-        .logo i { font-size: 1.8rem; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--primary-color); }
-        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
-
-        #hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-            margin-top: 80px;
-        }
-
-        .hero-content h1 { font-size: 3.5rem; margin-bottom: 20px; }
-        .hero-content h1 span { color: var(--secondary-color); }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-        #productos { padding: 80px 0; background-color: var(--light-color); }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .product-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
-        .product-card:hover { transform: translateY(-10px); }
-        .product-img { width: 100%; height: 200px; object-fit: cover; }
-        .product-info { padding: 20px; text-align: center; }
-        .product-info h3 { margin-bottom: 10px; color: var(--dark-color); }
-        .price { color: var(--primary-color); font-weight: 700; font-size: 1.2rem; }
-
-        #nosotros { padding: 80px 0; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .feature-box { text-align: center; padding: 30px; }
-        .feature-box i { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
-        .feature-box h3 { margin-bottom: 15px; }
-
-        #contacto { padding: 80px 0; background-color: var(--primary-color); color: var(--white); }
-        #contacto .section-title { color: var(--white); }
-        #contacto .section-title span { color: var(--secondary-color); }
-        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-        .contact-info div { margin-bottom: 20px; display: flex; align-items: center; }
-        .contact-info i { margin-right: 15px; font-size: 1.2rem; color: var(--secondary-color); width: 20px; text-align: center; }
-        
-        .map-container { height: 300px; background: #ddd; border-radius: 10px; overflow: hidden; }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-
-        footer { background: var(--dark-color); color: var(--white); padding: 20px 0; text-align: center; }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 35px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); color: white; }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .menu-toggle { display: block; }
-            .hero-content h1 { font-size: 2.2rem; }
-            .contact-wrapper { grid-template-columns: 1fr; }
-        }
+        body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #e74c3c; text-align: center; }
+        .producto { display: flex; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
+        .img-pizza { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; margin-right: 15px; }
+        .info { flex-grow: 1; }
+        .info b { display: block; font-size: 1.1em; }
+        .info i { color: #27ae60; font-style: normal; font-weight: bold; }
+        .btn-add { background: #e67e22; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
+        .carrito { margin-top: 20px; padding: 15px; background: #fff8f0; border-radius: 8px; border: 1px solid #ffe0b2; }
+        .btn-whatsapp { width: 100%; padding: 12px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1em; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="container navbar">
-            <a href="#" class="logo"><i class="fas fa-bolt"></i> Kuma Express</a>
-            <ul class="nav-links">
-                <li><a href="#hero">Inicio</a></li>
-                <li><a href="#productos">Productos</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-        </div>
-    </nav>
+<div class="container">
+    <h1>🍕 Pizzería Express</h1>
+    <div id="contenedor-menu"></div>
 
-    <header id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Bienvenido a <span>Kuma Express</span></h1>
-                <p>Rapidez, frescura y todo lo que necesitas a un clic de distancia. Tu minimarket de confianza con delivery inmediato.</p>
-                <a href="#productos" class="btn btn-primary">Ver Productos</a>
-                <a href="#contacto" class="btn btn-secondary" style="margin-left: 10px;">Contactar</a>
-            </div>
-        </div>
-    </header>
+    <div class="carrito">
+        <strong>Tu Pedido:</strong>
+        <ul id="lista-pedido" style="font-size: 0.9em; padding-left: 20px;"></ul>
+        <div style="text-align: right;"><strong>Total: $<span id="total-html">0</span></strong></div>
+        <button class="btn-whatsapp" onclick="enviarPedido()">Enviar pedido a WhatsApp 📱</button>
+    </div>
+</div>
 
-    <section id="productos">
-        <div class="container">
-            <h2 class="section-title">Nuestros <span>Productos</span></h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Frutas Frescas" class="product-img">
-                    <div class="product-info">
-                        <h3>Frutas Frescas</h3>
-                        <p>Selección premium del día.</p>
-                        <p class="price">Desde $1.50 / kg</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Lacteos" class="product-img">
-                    <div class="product-info">
-                        <h3>Lácteos y Huevos</h3>
-                        <p>Frescura garantizada.</p>
-                        <p class="price">Promo 2x1</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Vinos y Cervezas" class="product-img">
-                    <div class="product-info">
-                        <h3>Vinos y Cervezas</h3>
-                        <p>Variedad de bebidas alcohólicas.</p>
-                        <p class="price">Fríos para llevar</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Panaderia" class="product-img">
-                    <div class="product-info">
-                        <h3>Panadería</h3>
-                        <p>Pan fresco del día.</p>
-                        <p class="price">$0.50 c/u</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+    // 1. Datos con nuevas imágenes (Margarita corregida)
+    const pizzas = [
+        { nombre: "Pizza Margarita", precio: 350, img: "https://images.pexels.com/photos/1146760/pexels-photo-1146760.jpeg?auto=compress&cs=tinysrgb&w=200" },
+        { nombre: "Pizza Pepperoni", precio: 420, img: "https://images.pexels.com/photos/4109111/pexels-photo-4109111.jpeg?auto=compress&cs=tinysrgb&w=200" },
+        { nombre: "Pizza Hawaiana", precio: 400, img: "https://images.pexels.com/photos/367915/pexels-photo-367915.jpeg?auto=compress&cs=tinysrgb&w=200" },
+        { nombre: "Pizza 4 Quesos", precio: 450, img: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=200" }
+    ];
 
-    <section id="nosotros">
-        <div class="container">
-            <h2 class="section-title">¿Por qué elegir <span>Kuma Express</span>?</h2>
-            <div class="features-grid">
-                <div class="feature-box">
-                    <i class="fas fa-shipping-fast"></i>
-                    <h3>Envío Express</h3>
-                    <p>Nos destacamos por la velocidad. Tu pedido llega a la puerta de tu casa en tiempo récord.</p>
-                </div>
-                <div class="feature-box">
-                    <i class="fas fa-thumbs-up"></i>
-                    <h3>Calidad Selecta</h3>
-                    <p>Seleccionamos cuidadosamente cada producto para ofrecerte siempre lo mejor.</p>
-                </div>
-                <div class="feature-box">
-                    <i class="fas fa-tags"></i>
-                    <h3>Buenos Precios</h3>
-                    <p>Precios competitivos y ofertas constantes para cuidar tu bolsillo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    let miCarrito = [];
+    let miTotal = 0;
 
-    <section id="contacto">
-        <div class="container">
-            <h2 class="section-title">Contáctanos</h2>
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <div>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Dirección</h4>
-                            <p>Benito Blanco 1125</p>
-                        </div>
-                    </div>
-                    <div>
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Horario</h4>
-                            <p>Lunes a Sábado: 7:00 AM - 10:00 PM</p>
-                            <p>Domingos: 8:00 AM - 2:00 PM</p>
-                        </div>
-                    </div>
-                    <div>
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <h4>Teléfono / WhatsApp</h4>
-                            <!-- NÚMERO ACTUALIZADO -->
-                            <p>098 943 363</p>
-                        </div>
-                    </div>
-                    <br>
-                    <!-- ENLACE PARA LLAMAR ACTUALIZADO -->
-                    <a href="tel:+59898943363" class="btn btn-secondary">Llamar Ahora</a>
-                </div>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.1189987644!2d-56.15912368501971!3d-34.90754398038031!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959fca1c5c7c8b5f%3A0x7c7c7c7c7c7c7c7c!2sBenito%20Blanco%201125%2C%20Montevideo!5e0!3m2!1ses!2suy!4v1678901234567" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
+    // 2. Generar menú (Usando concatenación simple para evitar errores)
+    function cargarPizzas() {
+        const div = document.getElementById('contenedor-menu');
+        let html = "";
+        
+        for (let i = 0; i < pizzas.length; i++) {
+            html += '<div class="producto">' +
+                    '<img src="' + pizzas[i].img + '" class="img-pizza" onerror="this.src=\'https://via.placeholder.com/70?text=Pizza\'">' +
+                    '<div class="info">' +
+                        '<b>' + pizzas[i].nombre + '</b>' +
+                        '<i>$' + pizzas[i].precio + '</i>' +
+                    '</div>' +
+                    '<button class="btn-add" onclick="agregar(\'' + pizzas[i].nombre + '\',' + pizzas[i].precio + ')">Añadir</button>' +
+                '</div>';
+        }
+        div.innerHTML = html;
+    }
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Kuma Express. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    // 3. Lógica del Carrito
+    function agregar(nom, pre) {
+        miCarrito.push(nom);
+        miTotal += pre;
+        
+        const lista = document.getElementById('lista-pedido');
+        const item = document.createElement('li');
+        item.textContent = nom;
+        lista.appendChild(item);
+        
+        document.getElementById('total-html').textContent = miTotal;
+    }
 
-    <!-- BOTÓN WHATSAPP ACTUALIZADO -->
-    <a href="https://wa.me/59898943363?text=Hola%20Kuma%20Express%20quiero%20hacer%20un%20pedido" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    // 4. WhatsApp
+    function enviarPedido() {
+        if (miCarrito.length === 0) return alert("Selecciona una pizza");
+        
+        const telefono = "59898943363";
+        let texto = "Hola! Quiero pedir:\n" + miCarrito.join("\n") + "\n\nTotal: $" + miTotal;
+        
+        window.open("https://wa.me/" + telefono + "?text=" + encodeURIComponent(texto));
+    }
+
+    cargarPizzas();
+</script>
 
 </body>
 </html>
