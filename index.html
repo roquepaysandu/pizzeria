@@ -6,21 +6,26 @@
     <title>Pizzería Express - Menú</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; padding: 15px; margin: 0; }
-        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 15px; shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         h1 { color: #e74c3c; text-align: center; }
 
-        /* Mensaje de Aceptado */
-        #notificacion {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
+        /* Estilo del mensaje Aceptado flotante */
+        .notificacion-flotante {
+            position: absolute;
             background: #27ae60;
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
             font-weight: bold;
+            pointer-events: none;
+            animation: subirYDesaparecer 0.8s forwards;
             z-index: 1000;
+        }
+
+        @keyframes subirYDesaparecer {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
         }
 
         /* Estructura Grid */
@@ -36,9 +41,8 @@
             border: 1px solid #ddd;
             overflow: hidden;
             text-align: center;
-            transition: 0.3s;
+            position: relative;
         }
-        .card:hover { transform: translateY(-5px); }
 
         .img-grid {
             width: 100%;
@@ -48,7 +52,6 @@
         }
 
         .info-card { padding: 12px; }
-        .info-card b { display: block; font-size: 1.1em; }
         .precio { color: #27ae60; font-weight: bold; display: block; margin: 5px 0; }
 
         .btn-add {
@@ -66,8 +69,6 @@
     </style>
 </head>
 <body>
-
-<div id="notificacion">Aceptado</div>
 
 <div class="container">
     <h1>🍕 Pizzería Express</h1>
@@ -88,7 +89,7 @@
         { nombre: "Pizza Pepperoni", precio: 420, img: "https://images.pexels.com/photos/4109111/pexels-photo-4109111.jpeg?w=300" },
         { nombre: "Pizza Hawaiana", precio: 400, img: "https://images.pexels.com/photos/367915/pexels-photo-367915.jpeg?w=300" },
         { nombre: "Pizza 4 Quesos", precio: 450, img: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?w=300" },
-        { nombre: "Fainá", precio: 80, img: "https://images.pexels.com/photos/16034870/pexels-photo-16034870.jpeg?w=300" },
+        { nombre: "Fainá", precio: 80, img: "https://cdn.pixabay.com/photo/2017/09/30/15/10/plate-2802332_1280.jpg" },
         { nombre: "Papas Fritas", precio: 150, img: "https://images.pexels.com/photos/1893556/pexels-photo-1893556.jpeg?w=300" }
     ];
 
@@ -97,28 +98,40 @@
 
     function renderizarMenu() {
         const grid = document.getElementById('menu-grid');
-        grid.innerHTML = productos.map(p => `
+        grid.innerHTML = productos.map((p, index) => `
             <div class="card">
-                <img src="${p.img}" class="img-grid" onerror="this.src='https://via.placeholder.com/300x140?text=Pizza'">
+                <img src="${p.img}" class="img-grid" onerror="this.src='https://img.icons8.com/color/144/pizza.png'">
                 <div class="info-card">
                     <b>${p.nombre}</b>
                     <span class="precio">$${p.precio}</span>
                 </div>
-                <button class="btn-add" onclick="sumar('${p.nombre}', ${p.precio})">Añadir</button>
+                <button class="btn-add" onclick="sumar(event, '${p.nombre}', ${p.precio})">Añadir</button>
             </div>
         `).join('');
     }
 
-    function sumar(nombre, precio) {
+    function sumar(event, nombre, precio) {
         carrito.push(nombre);
         total += precio;
         
-        // Mostrar mensaje "Aceptado"
-        const aviso = document.getElementById('notificacion');
-        aviso.style.display = 'block';
-        setTimeout(() => { aviso.style.display = 'none'; }, 1000);
+        // --- Lógica del mensaje "Aceptado" cerca del botón ---
+        const btn = event.target;
+        const rect = btn.getBoundingClientRect();
+        
+        const aviso = document.createElement('div');
+        aviso.className = 'notificacion-flotante';
+        aviso.textContent = 'Aceptado ✓';
+        
+        // Posicionamos el aviso sobre el botón
+        aviso.style.left = (rect.left + window.scrollX + (rect.width / 4)) + 'px';
+        aviso.style.top = (rect.top + window.scrollY - 20) + 'px';
+        
+        document.body.appendChild(aviso);
+        
+        // Eliminar el elemento después de la animación
+        setTimeout(() => { aviso.remove(); }, 800);
 
-        // Actualizar vista
+        // Actualizar carrito visual
         const lista = document.getElementById('lista-pedido');
         const li = document.createElement('li');
         li.textContent = "✅ " + nombre;
